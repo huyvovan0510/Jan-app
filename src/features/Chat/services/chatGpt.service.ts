@@ -11,8 +11,7 @@ const createConversation = async (
     const response = await fetch(API_CHAT_COMPLETION, {
       method: 'POST',
       headers: {
-        Authorization:
-          'Bearer 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',
+        Authorization: `Bearer ${Config.CHAT_GPT_API_KEY}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -22,6 +21,7 @@ const createConversation = async (
     });
 
     const data = await response?.json();
+    console.log("\x1b[35;1m' ~ file: >>>>>>>>", data);
     return data?.choices[0];
   } catch (error) {
     console.log("\x1b[35;1m' ~ file: chatGpt.service.ts:29 ~ error:", error);
