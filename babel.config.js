@@ -20,6 +20,7 @@ module.exports = {
           '@navigation': './src/navigation',
           '@features': './src/features',
           '@assets': './assets',
+          '@store': './store',
         },
       },
     ],

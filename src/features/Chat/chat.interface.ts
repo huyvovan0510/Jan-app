@@ -5,6 +5,7 @@ export interface RoomData {
   roomName: string;
   avatar: string;
   lastMessage: string;
+  lastMessageId?: string;
 }
 
 export interface ChatUser extends User {
@@ -25,9 +26,27 @@ export interface ChatGPTMessage {
   content: string;
 }
 
-export interface roomDataParams {
-  avatar: string;
-  id: string;
+export interface Conversations {
+  id: IMessage[];
+}
+
+export interface StatusRoom {
   lastMessage: string;
-  roomName: string;
+  isGenerating: boolean;
+}
+
+export interface IChatReducer {
+  listRoomChat: RoomData[];
+  conversations?: Conversations;
+  roomStatus?: {
+    id: StatusRoom;
+  };
+  lastMessageId?: {
+    id: string;
+  };
+}
+
+export interface ReplicateAiResult {
+  status: string;
+  url: string;
 }

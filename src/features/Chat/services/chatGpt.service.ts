@@ -21,10 +21,9 @@ const createConversation = async (
     });
 
     const data = await response?.json();
-    console.log("\x1b[35;1m' ~ file: >>>>>>>>", data);
-    return data?.choices[0];
+    return data?.choices[0]?.message?.content;
   } catch (error) {
-    console.log("\x1b[35;1m' ~ file: chatGpt.service.ts:29 ~ error:", error);
+    console.log("\x1b[35;1m' ~ chatGpt.service ERROR", error);
   }
 };
 

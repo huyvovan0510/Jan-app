@@ -14,7 +14,7 @@ const Stack = createNativeStackNavigator();
 
 const BottomTabNavigation = () => {
   return (
-    <Tab.Navigator screenOptions={{headerShown: false}}>
+    <Tab.Navigator screenOptions={{headerShown: false}} initialRouteName="Chat">
       <Tab.Screen name="Discover" component={Discover} />
       <Tab.Screen name="Models" component={Models} />
       <Tab.Screen name="Chat" component={ChatScreen} />
@@ -26,6 +26,7 @@ const BottomTabNavigation = () => {
 const RootNavigation = () => {
   return (
     <NavigationContainer ref={navigationRef}>
+      <Tab.Screen name="Chat" component={ChatScreen} />
       <Stack.Navigator screenOptions={{headerShown: false}}>
         <Stack.Screen name="Main" component={BottomTabNavigation} />
         {ChatNavigationGroup()}

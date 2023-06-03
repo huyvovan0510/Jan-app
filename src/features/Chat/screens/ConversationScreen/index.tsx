@@ -1,8 +1,9 @@
 import useChatGPT from '@features/Chat/hooks/useChatGPT';
+import useReplicate from '@features/Chat/hooks/useReplicate';
 import {ChatNavigationParamsList} from '@features/Chat/navigation';
 import {goBack} from '@navigation/NavigationServices';
 import {RouteProp, useRoute} from '@react-navigation/native';
-import React from 'react';
+import React, {useMemo} from 'react';
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import {
   Bubble,
@@ -13,6 +14,11 @@ import {
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/Ionicons';
 
+const hooks: any = {
+  gpt: useChatGPT,
+  replicate: useReplicate,
+};
+
 type ConversationScreenNavigationProps = RouteProp<
   ChatNavigationParamsList,
   'ConversationScreen'
@@ -21,12 +27,25 @@ const ConversationScreen = () => {
   const route = useRoute<ConversationScreenNavigationProps>();
   const {params} = route || {};
   const {roomData} = params || {};
-  const {onSendMessage, isGenerating, messages} = useChatGPT();
+
+  const hookChat = useMemo(
+    () => (roomData ? hooks[roomData?.id] : useChatGPT),
+    [roomData],
+  );
+
+  const {onSendMessage, isGenerating, messages, onSaveMessage} = hookChat(
+    roomData?.id,
+  );
+
+  const onGoBack = () => {
+    onSaveMessage();
+    goBack();
+  };
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <Pressable onPress={goBack}>
+        <Pressable onPress={onGoBack}>
           <Icon size={25} name="md-arrow-back" />
         </Pressable>
         <Image
@@ -56,7 +75,7 @@ const ConversationScreen = () => {
           <>
             {isGenerating && (
               <View style={styles.footer}>
-                <Text>Chat GPT is generating...</Text>
+                <Text>{`${roomData?.roomName} is generating...`}</Text>
               </View>
             )}
           </>
@@ -71,9 +90,15 @@ const ConversationScreen = () => {
             <Text style={styles.txtSend}>Send</Text>
           </Pressable>
         )}
-        renderInputToolbar={props => (
-          <InputToolbar {...props} containerStyle={styles.inputToolbarStyle} />
-        )}
+        renderInputToolbar={props => {
+          return (
+            <InputToolbar
+              {...props}
+              accessoryStyle={{backgroundColor: 'red'}}
+              containerStyle={styles.inputToolbarStyle}
+            />
+          );
+        }}
         renderDay={() => null}
         renderComposer={props => (
           <Composer
@@ -125,7 +150,6 @@ const styles = StyleSheet.create({
   inputToolbarStyle: {
     marginHorizontal: 16,
     paddingHorizontal: 8,
-    marginBottom: 20,
     borderTopColor: 'transparent',
     backgroundColor: '#ffff',
     shadowColor: '#dbdff7',

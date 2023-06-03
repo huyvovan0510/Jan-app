@@ -19,7 +19,8 @@
         "alias": {
           "@navigation": "./src/navigation",
           "@features": "./src/features",
-          "@assets": "./assets"
+          "@assets": "./assets",
+          "@store": "./store"
         }
       }
     ]

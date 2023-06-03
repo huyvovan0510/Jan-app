@@ -1,5 +1,9 @@
 import {RoomData} from '@features/Chat/chat.interface';
 import RoomItem from '@features/Chat/components/RoomItem';
+import {
+  ChatSelectors,
+  useShallowEqualSelector,
+} from '@features/Chat/store/chat.selectors';
 import {FlashList} from '@shopify/flash-list';
 import React, {useCallback} from 'react';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
@@ -7,7 +11,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 
 const data = [
   {
-    id: '1',
+    id: 'gpt',
     roomName: 'Chat GPT',
     avatar:
       'https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/1200px-ChatGPT_logo.svg.png',
@@ -15,7 +19,7 @@ const data = [
   },
 
   {
-    id: '2',
+    id: 'replicate',
     roomName: 'Replica',
     avatar: 'https://replicate.com/static/favicon.e390e65c9599.png',
     lastMessage: '',
