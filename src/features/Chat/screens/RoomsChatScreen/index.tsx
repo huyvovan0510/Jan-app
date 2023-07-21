@@ -1,9 +1,5 @@
 import {RoomData} from '@features/Chat/chat.interface';
 import RoomItem from '@features/Chat/components/RoomItem';
-import {
-  ChatSelectors,
-  useShallowEqualSelector,
-} from '@features/Chat/store/chat.selectors';
 import {FlashList} from '@shopify/flash-list';
 import React, {useCallback} from 'react';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
@@ -30,6 +26,7 @@ const ChatScreen = () => {
   const renderRooms = useCallback(
     ({item, index}: {item: RoomData; index: number}) => (
       <RoomItem item={item} index={index} />
+      // <Text>{index}</Text>
     ),
     [],
   );

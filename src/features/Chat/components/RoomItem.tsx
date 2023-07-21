@@ -1,4 +1,5 @@
 import {navigate} from '@navigation/NavigationServices';
+import {useNavigation} from '@react-navigation/native';
 import React, {memo} from 'react';
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import {ROOM_ITEM_HEIGHT} from '../chat.constants';
@@ -12,8 +13,10 @@ interface RoomItemProps {
   index?: number;
 }
 const RoomItem = ({item}: RoomItemProps) => {
+  const navigation = useNavigation();
+
   const openConversation = () => {
-    navigate('ConversationScreen', {roomData: item});
+    navigation.navigate('ConversationScreen', {roomData: item});
   };
 
   return (

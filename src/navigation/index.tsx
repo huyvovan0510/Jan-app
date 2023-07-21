@@ -25,13 +25,12 @@ const BottomTabNavigation = () => {
 
 const RootNavigation = () => {
   return (
-    <NavigationContainer ref={navigationRef}>
-      <Tab.Screen name="Chat" component={ChatScreen} />
-      <Stack.Navigator screenOptions={{headerShown: false}}>
-        <Stack.Screen name="Main" component={BottomTabNavigation} />
-        {ChatNavigationGroup()}
-      </Stack.Navigator>
-    </NavigationContainer>
+    // <NavigationContainer ref={navigationRef}>
+    <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen name="Main" component={BottomTabNavigation} />
+      {ChatNavigationGroup()}
+    </Stack.Navigator>
+    // </NavigationContainer>
   );
 };
 

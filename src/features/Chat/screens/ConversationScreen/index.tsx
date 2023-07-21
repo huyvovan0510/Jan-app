@@ -2,7 +2,7 @@ import useChatGPT from '@features/Chat/hooks/useChatGPT';
 import useReplicate from '@features/Chat/hooks/useReplicate';
 import {ChatNavigationParamsList} from '@features/Chat/navigation';
 import {goBack} from '@navigation/NavigationServices';
-import {RouteProp, useRoute} from '@react-navigation/native';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import React, {useMemo} from 'react';
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import {
@@ -25,6 +25,7 @@ type ConversationScreenNavigationProps = RouteProp<
 >;
 const ConversationScreen = () => {
   const route = useRoute<ConversationScreenNavigationProps>();
+  const navigation = useNavigation();
   const {params} = route || {};
   const {roomData} = params || {};
 
@@ -39,7 +40,7 @@ const ConversationScreen = () => {
 
   const onGoBack = () => {
     onSaveMessage();
-    goBack();
+    navigation.goBack();
   };
 
   return (

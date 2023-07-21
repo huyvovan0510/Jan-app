@@ -11,7 +11,7 @@ const createConversation = async (
     const response = await fetch(API_CHAT_COMPLETION, {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${Config.CHAT_GPT_API_KEY}`,
+        Authorization: `Bearer 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`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
